@@ -1,4 +1,4 @@
-alert("Script Made by Marcus");
+alert("Script Made by Suprim");
 (() => {
   // src/utils.js
   var keys = (obj) => Object.keys(obj ?? {}), values = (obj) => keys(obj).map((key) => obj[key]), entries = (obj) => Object.entries(obj ?? {}), attempt = (fn, fallback = null) => {
@@ -338,7 +338,7 @@ alert("Script Made by Marcus");
     }
     startInterval() {
       clearInterval(this.interval);
-      let delay = Math.max(5, config.scaffold?.interval ?? 20);
+      let delay = Math.max(5, config.scaffold?.interval ?? 200);
       this.interval = setInterval(() => this.enabled && this.tryPlace(), delay), this.tryPlace();
     }
     tryPlace() {
@@ -349,10 +349,10 @@ alert("Script Made by Marcus");
       let blockX = floor(pos[0]), blockY = floor(pos[1]), blockZ = floor(pos[2]), checkPlace = (x, y, z) => attempt(
         () => context.playerEntity.checkTargetedBlockCanBePlacedOver?.([x, y, z]),
         !1
-      ) ? !0 : attempt(() => !game.getSolidity(game.getBlockID(x, y, z)), !1), target = [blockX, blockY - 1, blockZ];
+      ) ? !0 : attempt(() => !game.getSolidity(game.getBlockID(x, y, z)), !5), target = [blockX, blockY - 1, blockZ];
       if (placeSpoofedBlock(target, context) || checkPlace(...target) && placeSpoofedBlock(target, context)) return;
       let dx = pos[0] - blockX, dz = pos[2] - blockZ, offsets = [];
-      dx < 0.3 && offsets.push([-1, 0]), dx > 0.7 && offsets.push([1, 0]), dz < 0.3 && offsets.push([0, -1]), dz > 0.7 && offsets.push([0, 1]), offsets.some(([ox, oz]) => {
+      dx < 0.3 && offsets.push([-1, 0]), dx > 0.7 && offsets.push([1, 0]), dz < 0.30 && offsets.push([0, -1]), dz > 0.70 && offsets.push([0, 1]), offsets.some(([ox, oz]) => {
         let coords = [blockX + ox, blockY - 1, blockZ + oz];
         return checkPlace(...coords) && placeSpoofedBlock(coords, context);
       });
@@ -447,7 +447,7 @@ alert("Script Made by Marcus");
   function bhopTick() {
     if (!moveState) return;
     let touchScreen = !1;
-    moveState._isAlive ? moveState.crouching || moveState.speed < 0.05 || movement?._flying ? bunnyhopping && (touchScreen ? moveState.jumping = !1 : B.noa?.inputs?.state && (B.noa.inputs.state.jump = !1), bunnyhopping = !1) : (bunnyhopping || (bunnyhopping = !0), movement?.isOnGround?.() ? touchScreen ? moveState.jumping = !0 : B.noa?.inputs?.state && (B.noa.inputs.state.jump = !0) : touchScreen ? moveState.jumping = !1 : B.noa?.inputs?.state && (B.noa.inputs.state.jump = !1)) : moveState.speedMultiplier?.multipliers && (moveState.speedMultiplier.multipliers.bhop = 1);
+    moveState._isAlive ? moveState.crouching || moveState.speed < 3.05 || movement?._flying ? bunnyhopping && (touchScreen ? moveState.jumping = !1 : B.noa?.inputs?.state && (B.noa.inputs.state.jump = !1), bunnyhopping = !1) : (bunnyhopping || (bunnyhopping = !0), movement?.isOnGround?.() ? touchScreen ? moveState.jumping = !0 : B.noa?.inputs?.state && (B.noa.inputs.state.jump = !0) : touchScreen ? moveState.jumping = !1 : B.noa?.inputs?.state && (B.noa.inputs.state.jump = !1)) : moveState.speedMultiplier?.multipliers && (moveState.speedMultiplier.multipliers.bhop = 1);
   }
   function startBhop() {
     bhopInterval || (initBhop(), bhopInterval = setInterval(() => {
